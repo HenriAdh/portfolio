@@ -12,7 +12,9 @@ export const SmoothScroll: React.FC<{
     const handleClick = async (e: PointerEvent) => {
       if (!e.target) return;
 
-      const target = e.target.closest("a");
+      const eventTarget = e.target as HTMLElement;
+
+      const target = eventTarget.closest("a");
       if (!target) return;
 
       const href = target.getAttribute("href");
@@ -35,7 +37,7 @@ export const SmoothScroll: React.FC<{
           const duration = 800;
           let startTime: number | null = null;
 
-          const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+          const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
 
           const animation = (currentTime: number) => {
             if (startTime === null) startTime = currentTime;
