@@ -1,48 +1,13 @@
+"use server";
+
+import { prisma } from "@/lib/prisma";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  liveUrl?: string;
-  githubUrl?: string;
-}
-
-const Projects = () => {
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "E-commerce Platform",
-      description:
-        "Plataforma completa de e-commerce com painel administrativo, sistema de pagamentos e gestão de estoque.",
-      image: "/project1.jpg",
-      technologies: ["React", "Next.js", "Tailwind CSS", "Node.js"],
-      liveUrl: "#",
-      githubUrl: "#",
-    },
-    {
-      id: 2,
-      title: "Task Management App",
-      description:
-        "Aplicativo de gerenciamento de tarefas com drag-and-drop, categorias e lembretes inteligentes.",
-      image: "/project2.jpg",
-      technologies: ["TypeScript", "React", "Node.js", "MongoDB"],
-      liveUrl: "#",
-      githubUrl: "#",
-    },
-    {
-      id: 3,
-      title: "Portfolio Creative",
-      description:
-        "Site portfolio interativo com animações CSS, efeitos parallax e design responsivo.",
-      image: "/project3.jpg",
-      technologies: ["Next.js", "Framer Motion", "Tailwind", "Three.js"],
-      liveUrl: "#",
-      githubUrl: "#",
-    },
-  ];
+export async function Projects() {
+  const projects = await prisma.project.findMany({
+    include: { projectImage: true, projectTag: true, projectTechnologie: true },
+    orderBy: { createdAt: "desc" },
+  });
 
   return (
     <section
@@ -92,9 +57,9 @@ const Projects = () => {
                 {/* Overlay hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
                   <div className="flex gap-4">
-                    {project.liveUrl && (
+                    {project.url && (
                       <a
-                        href={project.liveUrl}
+                        href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-primary text-primary-foreground px-4 py-2 rounded-full flex items-center gap-2 hover:bg-primary/90 transition-colors"
@@ -103,9 +68,9 @@ const Projects = () => {
                         Demo
                       </a>
                     )}
-                    {project.githubUrl && (
+                    {project.github && (
                       <a
-                        href={project.githubUrl}
+                        href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-foreground/10 text-foreground px-4 py-2 rounded-full flex items-center gap-2 hover:bg-foreground/20 transition-colors backdrop-blur-sm"
@@ -120,17 +85,17 @@ const Projects = () => {
                 {/* Badge de tecnologias */}
                 <div className="absolute top-4 left-4">
                   <div className="flex flex-wrap gap-2">
-                    {project.technologies.slice(0, 2).map((tech, index) => (
+                    {project.projectTechnologie.slice(0, 2).map((tech) => (
                       <span
-                        key={index}
+                        key={tech.id}
                         className="bg-background/80 backdrop-blur-sm text-xs text-foreground/80 px-2 py-1 rounded-full border border-border/50"
                       >
-                        {tech}
+                        {tech.description}
                       </span>
                     ))}
-                    {project.technologies.length > 2 && (
+                    {project.projectTechnologie.length > 2 && (
                       <span className="bg-background/80 backdrop-blur-sm text-xs text-foreground/80 px-2 py-1 rounded-full border border-border/50">
-                        +{project.technologies.length - 2}
+                        +{project.projectTechnologie.length - 2}
                       </span>
                     )}
                   </div>
@@ -146,21 +111,21 @@ const Projects = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech, index) => (
+                  {project.projectTag.map((tag) => (
                     <span
-                      key={index}
+                      key={tag.id}
                       className="bg-foreground/5 text-foreground/70 text-xs px-3 py-1.5 rounded-full border border-border/30 hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-300"
                     >
-                      {tech}
+                      {tag.description}
                     </span>
                   ))}
                 </div>
 
                 <div className="flex justify-between items-center">
                   <div className="flex gap-3">
-                    {project.liveUrl && (
+                    {project.url && (
                       <a
-                        href={project.liveUrl}
+                        href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-foreground/70 hover:text-primary transition-colors duration-300 flex items-center gap-1 text-sm"
@@ -169,9 +134,9 @@ const Projects = () => {
                         Demo
                       </a>
                     )}
-                    {project.githubUrl && (
+                    {project.github && (
                       <a
-                        href={project.githubUrl}
+                        href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-foreground/70 hover:text-primary transition-colors duration-300 flex items-center gap-1 text-sm"
@@ -208,6 +173,6 @@ const Projects = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Projects;

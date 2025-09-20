@@ -1,4 +1,4 @@
-const Hero = () => {
+async function Hero() {
   return (
     <section
       id="inicio"
@@ -120,6 +120,6 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Hero;

@@ -1,6 +1,7 @@
 import { Send, Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
+import Link from "next/link";
 
-const Contact = () => {
+async function Contact() {
   return (
     <section
       id="contato"
@@ -67,7 +68,7 @@ const Contact = () => {
                   <div>
                     <p className="font-medium">Localização</p>
                     <p className="text-primary-foreground/70">
-                      São Paulo, Brasil
+                      Sorocaba-SP, Brasil
                     </p>
                   </div>
                 </div>
@@ -80,19 +81,21 @@ const Contact = () => {
                 Me siga nas redes
               </h4>
               <div className="flex gap-6">
-                <a
-                  href="#"
+                <Link
+                  href="https://www.linkedin.com/in/henriqueadh/"
+                  target="_blank"
                   className="w-14 h-14 bg-primary-foreground/10 rounded-full flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 hover:scale-110 transition-all duration-300 group"
                 >
                   <Linkedin className="w-6 h-6 group-hover:text-secondary transition-colors" />
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  href="https://github.com/HenriAdh"
+                  target="_blank"
                   className="w-14 h-14 bg-primary-foreground/10 rounded-full flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 hover:scale-110 transition-all duration-300 group"
                 >
                   <Github className="w-6 h-6 group-hover:text-secondary transition-colors" />
-                </a>
+                </Link>
 
                 <a
                   href="#"
@@ -172,6 +175,6 @@ const Contact = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Contact;

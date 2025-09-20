@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-const About = () => {
+async function About() {
   const skills = [
     {
       name: "React",
@@ -168,6 +168,6 @@ const About = () => {
       </div>
     </section>
   );
-};
+}
 
 export default About;
