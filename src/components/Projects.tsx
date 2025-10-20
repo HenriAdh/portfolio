@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export async function Projects() {
   const projects = await prisma.project.findMany({
@@ -47,10 +48,16 @@ export async function Projects() {
               <div className="relative h-60 overflow-hidden">
                 <div className="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                   <div className="text-center p-4">
+                    <Image
+                      src={project.projectImage[0].url}
+                      alt={`${project.title} logo`}
+                      fill
+                      style={{ objectFit: "cover" }}
+                    />
+
                     <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <ArrowRight className="w-8 h-8 text-primary" />
                     </div>
-                    <p className="text-foreground/80">Imagem do Projeto</p>
                   </div>
                 </div>
 
@@ -73,7 +80,7 @@ export async function Projects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-foreground/10 text-foreground px-4 py-2 rounded-full flex items-center gap-2 hover:bg-foreground/20 transition-colors backdrop-blur-sm"
+                        className="bg-foreground/90 text-primary px-4 py-2 rounded-full flex items-center gap-2 hover:bg-foreground/60 transition-colors backdrop-blur-sm"
                       >
                         <Github className="w-4 h-4" />
                         Código
@@ -134,6 +141,7 @@ export async function Projects() {
                         Demo
                       </a>
                     )}
+
                     {project.github && (
                       <a
                         href={project.github}
@@ -152,9 +160,6 @@ export async function Projects() {
                   </div>
                 </div>
               </div>
-
-              {/* Efeito de brilho no hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
             </div>
           ))}
         </div>
@@ -162,13 +167,41 @@ export async function Projects() {
         {/* Call to action no final */}
         <div className="text-center mt-16">
           <p className="text-muted-foreground mb-6">Gostou do que viu?</p>
-          <a
-            href="#contato"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent text-primary-foreground px-8 py-4 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-          >
-            Vamos trabalhar juntos
-            <ArrowRight className="w-5 h-5" />
-          </a>
+
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-5">
+            <a
+              href="#contato"
+              className="group relative overflow-hidden bg-gradient-to-r from-primary to-accent px-8 py-4 rounded-full text-primary-foreground font-medium shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-1.5"
+            >
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                Vamos trabalhar juntos
+                <svg
+                  className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </span>
+
+              {/* Efeito de shimmer animado */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute -inset-10 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              </div>
+
+              {/* Overlay escuro para melhor contraste do texto */}
+              <div className="absolute inset-0 bg-foreground/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              {/* Efeito de brilho externo */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/40 to-accent/40 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            </a>
+          </div>
         </div>
       </div>
     </section>

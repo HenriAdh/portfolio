@@ -32,7 +32,7 @@ async function Contact() {
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-semibold text-primary-foreground mb-6 flex items-center">
-                <span className="w-8 h-0.5 bg-secondary rounded-full mr-3"></span>
+                <span className="w-8 h-0.5 bg-foreground rounded-full mr-3"></span>
                 Vamos conversar!
               </h3>
 
@@ -120,7 +120,7 @@ async function Contact() {
                 <input
                   type="text"
                   id="name"
-                  className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                   placeholder="Seu nome completo"
                 />
               </div>
@@ -135,7 +135,7 @@ async function Contact() {
                 <input
                   type="email"
                   id="email"
-                  className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                   placeholder="seu@email.com"
                 />
               </div>
@@ -150,14 +150,14 @@ async function Contact() {
                 <textarea
                   id="message"
                   rows={5}
-                  className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300 resize-none"
+                  className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 resize-none"
                   placeholder="Conte-me sobre seu projeto..."
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-secondary text-background py-4 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-secondary/90 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 group"
+                className="w-full bg-foreground text-background py-4 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-foreground/90 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 group hover:mouse-pointer"
               >
                 Enviar Mensagem
                 <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
