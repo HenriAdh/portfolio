@@ -91,7 +91,7 @@ async function About() {
               <div className="w-72 h-72 bg-gradient-to-br from-primary/15 to-accent/10 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center relative group border border-border/30">
                 <Image
                   alt="my-self"
-                  src={"/me.jpeg"}
+                  src={"/me.png"}
                   width={1024}
                   height={1024}
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
