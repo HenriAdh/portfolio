@@ -1,7 +1,23 @@
+import { prisma } from "@/lib/prisma";
 import { Send, Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 
 async function Contact() {
+  async function handleSubmit(formData: FormData) {
+    "use server";
+
+    const { name, email, message } = Object.fromEntries(formData.entries());
+
+    if (
+      typeof name !== "string" ||
+      typeof message !== "string" ||
+      typeof email !== "string"
+    )
+      return;
+
+    await prisma.message.create({ data: { name, message, email } });
+  }
+
   return (
     <section
       id="contato"
@@ -109,7 +125,7 @@ async function Contact() {
 
           {/* Formulário */}
           <div className="bg-background/10 backdrop-blur-md rounded-2xl p-8 border border-primary-foreground/20 shadow-2xl">
-            <form className="space-y-6">
+            <form className="space-y-6" action={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -120,6 +136,7 @@ async function Contact() {
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                   placeholder="Seu nome completo"
                 />
@@ -135,6 +152,7 @@ async function Contact() {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                   placeholder="seu@email.com"
                 />
@@ -149,6 +167,7 @@ async function Contact() {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   rows={5}
                   className="w-full px-4 py-3 bg-primary-foreground/5 border border-primary-foreground/20 rounded-xl text-primary-foreground placeholder-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 resize-none"
                   placeholder="Conte-me sobre seu projeto..."
@@ -157,7 +176,7 @@ async function Contact() {
 
               <button
                 type="submit"
-                className="w-full bg-foreground text-background py-4 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-foreground/90 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 group hover:mouse-pointer"
+                className="w-full bg-foreground text-background py-4 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-foreground/90 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 group hover:cursor-pointer"
               >
                 Enviar Mensagem
                 <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
